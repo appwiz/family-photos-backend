@@ -4,6 +4,7 @@ Supports listing all photos or filtering by a single tag. Returns metadata
 together with time-limited presigned download URLs.
 """
 
+import base64
 import json
 import os
 
@@ -71,13 +72,15 @@ def _query_by_tag(tag, limit, next_token):
 
     # Step 2: batch-get the full metadata for each photo
     photos = []
-    for item in tag_items:
-        photo_id = item["photoId"]
-        meta = table.get_item(
-            Key={"PK": f"PHOTO#{photo_id}", "SK": "METADATA"},
-        ).get("Item")
-        if meta:
-            photos.append(meta)
+    if tag_items:
+        keys = [
+            {"PK": f"PHOTO#{item['photoId']}", "SK": "METADATA"}
+            for item in tag_items
+        ]
+        response = dynamodb.batch_get_item(
+            RequestItems={PHOTOS_TABLE: {"Keys": keys}},
+        )
+        photos = response.get("Responses", {}).get(PHOTOS_TABLE, [])
 
     new_next_token = None
     if "LastEvaluatedKey" in result:
@@ -118,12 +121,10 @@ def _parse_limit(raw):
 
 
 def _b64_encode(text):
-    import base64
     return base64.urlsafe_b64encode(text.encode()).decode()
 
 
 def _b64_decode(token):
-    import base64
     return base64.urlsafe_b64decode(token.encode()).decode()
 
 
