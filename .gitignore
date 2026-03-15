@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+cdk.out/
+
+# CDK context
+cdk.context.json
+
+# TypeScript compiled output
+*.js
+*.d.ts
+!jest.config.js
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
