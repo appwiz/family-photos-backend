@@ -132,3 +132,16 @@ store both photo metadata and tag-based indexes.
 - S3 bucket is private; access is only via presigned URLs
 - Lambda execution roles follow least-privilege (only necessary S3 and DynamoDB permissions)
 - Binary photo data is base64-encoded in the JSON payload for simplicity
+
+## Technology Stack
+
+| Component       | Technology                          |
+|-----------------|-------------------------------------|
+| Language        | TypeScript                          |
+| Infrastructure  | AWS CDK                             |
+| Compute         | AWS Lambda (Node.js 20)             |
+| API             | Amazon API Gateway (REST)           |
+| Storage         | Amazon S3                           |
+| Database        | Amazon DynamoDB                     |
+| Testing         | Jest, aws-sdk-client-mock           |
+| Bundling        | esbuild (via CDK NodejsFunction)    |

@@ -1,11 +1,13 @@
 # family-photos-backend
 
-Backend for sharing family photos — a serverless application on AWS.
+Serverless backend for sharing family photos — AWS CDK + TypeScript.
 
 ## Architecture
 
 See [docs/architecture.md](docs/architecture.md) for the full architecture
 documentation including a diagram, API specifications, and DynamoDB table design.
+
+See [SPEC.md](SPEC.md) for constraints and design decisions.
 
 ### Quick overview
 
@@ -18,26 +20,28 @@ documentation including a diagram, API specifications, and DynamoDB table design
 
 ## Prerequisites
 
-- Python 3.12+
-- [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
+- Node.js 20+
+- [AWS CDK CLI](https://docs.aws.amazon.com/cdk/v2/guide/cli.html) (`npm install -g aws-cdk`)
 - An AWS account with credentials configured
 
 ## Local development
 
 ```bash
-# Install test dependencies
-pip install -r tests/requirements.txt
+# Install dependencies
+npm install
 
 # Run unit tests
-PYTHONPATH=src python -m pytest tests/ -v
+npm test
+
+# Type-check
+npm run build
 ```
 
 ## Deploy
 
 ```bash
-sam build
-sam deploy --guided   # first time — creates samconfig.toml
-sam deploy            # subsequent deploys
+cdk bootstrap   # first time only
+cdk deploy
 ```
 
 ## API usage

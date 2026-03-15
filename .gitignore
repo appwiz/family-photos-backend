@@ -1,18 +1,17 @@
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
+# Dependencies
+node_modules/
+
+# Build output
 dist/
-build/
+cdk.out/
 
-# SAM / AWS
-.aws-sam/
-samconfig.toml
+# CDK context
+cdk.context.json
 
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
+# TypeScript compiled output
+*.js
+*.d.ts
+!jest.config.js
 
 # IDE
 .vscode/
@@ -23,3 +22,6 @@ htmlcov/
 # OS
 .DS_Store
 Thumbs.db
+
+# Testing
+coverage/
